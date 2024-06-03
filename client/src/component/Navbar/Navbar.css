@@ -1,0 +1,91 @@
+/* Navbar.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  background-color: #60A5FA;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+ 
+}
+
+.navbar-link .icon {
+  margin-right: 0.5rem;
+}
+
+.navbar-hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.navbar-hamburger .icon {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-link {
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .navbar-hamburger {
+    display: block;
+  }
+}

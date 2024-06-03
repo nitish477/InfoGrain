@@ -6,12 +6,17 @@ import TokenBlacklist from "../models/Logout.js";
 
 const signup = asyncHandler(async (req, res) => {
   const { name, email, password, address,mobile } = req.body;
+
   if (!name || !email || !password || !mobile) {
     return res.status(400).send({ message: "Please fill out all fields!" });
   }
   const userExist = await User.findOne({ email });
   if (userExist) {
     return res.status(400).send({ message: "User Already Exist" });
+  }
+  const mobileExist = await User.findOne({ mobile });
+  if (mobileExist) {
+    return res.status(400).send({ message: "Number Already Exist" });
   }
   const user = await User.create({
     name,
