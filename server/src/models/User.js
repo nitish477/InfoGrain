@@ -22,6 +22,11 @@ const userSchema = new Schema(
       require: [true, "Please Provide Number"],
       unique: [true, "Please enter Another"],
     },
+    pic: {
+      type: String,
+      default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
   },
   {
     timestamps: true,

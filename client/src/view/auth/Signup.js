@@ -26,7 +26,7 @@ function Signup() {
          const res = await axios.post("/signup",Userdata)
        if(res.status===201){
          alert(res?.data?.message);
-         navigate("/")
+         navigate("/login")
        }
        else{
         alert(res?.data?.message);

@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 import TokenBlacklist from "../models/Logout.js";
 
 const signup = asyncHandler(async (req, res) => {
-  const { name, email, password, address,mobile } = req.body;
+  const { name, email, password, address,mobile ,pic} = req.body;
 
   if (!name || !email || !password || !mobile) {
     return res.status(400).send({ message: "Please fill out all fields!" });
@@ -23,7 +23,7 @@ const signup = asyncHandler(async (req, res) => {
     email,
     password,
     address,
-    mobile
+    mobile,pic
   });
   if (user) {
     res.status(201).json({
@@ -41,7 +41,7 @@ const login = asyncHandler(async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select(
-      "name email password address mobile"
+      "name email password address mobile pic"
     );
 
     if (user && (await user.matchPassword(password))) {
@@ -74,6 +74,33 @@ const getuser = asyncHandler(async (req, res) => {
   }
 });
 
+const updateUser = asyncHandler(async (req,res)=>{
+  const _id = req.params;
+  const { name, email, password, address, mobile, pic } = req.body;
+
+ 
+ 
+  const user = await User.updateOne({_id:_id},{$set:{
+    name,
+    email,
+    password,
+    address,
+    mobile,
+    pic,
+  }});
+
+    const update= await User.find({ _id: _id });
+  if (user) {
+    res.status(201).json({
+      success: true,
+      data: update,
+      message: "Update SuccessFully",
+    });
+  } else {
+    res.status(404).send({ message: "Fail to Update a user" });
+  }
+})
+
 const logout = asyncHandler(async (req, res) => {
   const token =
     req.headers.authorization && req.headers.authorization.split(" ")[1];
@@ -99,4 +126,4 @@ const logout = asyncHandler(async (req, res) => {
 });
 
 
-export { signup, login, getuser ,logout};
+export { signup, login, getuser, logout, updateUser };

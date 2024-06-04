@@ -26,6 +26,7 @@ function Login() {
         alert(res?.data?.message)
          navigate("/")
           localStorage.setItem("token", JSON.stringify(res?.data?.token));
+          localStorage.setItem("user", JSON.stringify(res?.data?.data));
        }
     } catch (error) {
         console.log(error?.message);

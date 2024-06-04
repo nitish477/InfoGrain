@@ -7,9 +7,11 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./Navbar.css";
 import axios from "axios";
+import { State } from "../Context/Provider";
 
 const Navbar = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+
   const [token, setToken] = useState(null);
   const navigate = useNavigate()
   useEffect(() => {
@@ -19,12 +21,15 @@ const Navbar = () => {
     }
   }, []);
 
+  
+
    const logout = async()=>{
        try {
-          const res =await axios.post("/logout",null,{
+          await axios.post("/logout",null,{
             headers:{"Authorization":`Bearer ${token}`}
           })
           localStorage.removeItem("token");
+          localStorage.removeItem("user");
           navigate("/login")
        } catch (error) {
         console.log(error.message);
@@ -35,7 +40,7 @@ const Navbar = () => {
     <header className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">
-          <Link to="/">BrandLogo</Link>
+          <Link to="/">Nitish Mart</Link>
         </div>
         <nav className={`navbar-menu ${isHamburgerOpen ? "active" : ""}`}>
           <ul className="navbar-links">
