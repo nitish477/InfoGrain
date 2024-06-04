@@ -17,6 +17,7 @@ import {
 import { styled } from "@mui/system";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import axios  from 'axios';
+import Navbar from './../../component/Navbar/Navbar';
 
 const ProfileCard = styled(Card)({
   maxWidth: 400,
@@ -164,100 +165,103 @@ const UserProfile = () => {
    
 
   return (
-    <Container>
-      <ProfileCard>
-        <ProfileAvatar alt={userInfo.name} src={pic || userInfo.pic}>
-          <IconButton
-            color="primary"
-            component="label"
-            style={{ position: "absolute", bottom: 0, right: 0 }}
-          >
-            <PhotoCamera />
-            <HiddenInput
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              name="pic"
-            />
-          </IconButton>
-        </ProfileAvatar>
-        <ProfileTitle variant="h5">{userInfo.name}</ProfileTitle>
-        <CardContent>
-          <Grid container spacing={2}>
-            <InfoItem item xs={12}>
-              <Typography variant="body1">
-                <strong>Address:</strong> {userInfo.address}
-              </Typography>
-            </InfoItem>
-            <InfoItem item xs={12}>
-              <Typography variant="body1">
-                <strong>Phone Number:</strong> {userInfo.mobile}
-              </Typography>
-            </InfoItem>
-            <InfoItem item xs={12}>
-              <Typography variant="body1">
-                <strong>Email:</strong> {userInfo.email}
-              </Typography>
-            </InfoItem>
-          </Grid>
-          <EditButtonContainer>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-              Edit Profile
-            </Button>
-          </EditButtonContainer>
-        </CardContent>
-      </ProfileCard>
+    <>
+    <Navbar/>
+      <Container>
+        <ProfileCard>
+          <ProfileAvatar alt={userInfo.name} src={pic || userInfo.pic}>
+            <IconButton
+              color="primary"
+              component="label"
+              style={{ position: "absolute", bottom: 0, right: 0 }}
+            >
+              <PhotoCamera />
+              <HiddenInput
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                name="pic"
+              />
+            </IconButton>
+          </ProfileAvatar>
+          <ProfileTitle variant="h5">{userInfo.name}</ProfileTitle>
+          <CardContent>
+            <Grid container spacing={2}>
+              <InfoItem item xs={12}>
+                <Typography variant="body1">
+                  <strong>Address:</strong> {userInfo.address}
+                </Typography>
+              </InfoItem>
+              <InfoItem item xs={12}>
+                <Typography variant="body1">
+                  <strong>Phone Number:</strong> {userInfo.mobile}
+                </Typography>
+              </InfoItem>
+              <InfoItem item xs={12}>
+                <Typography variant="body1">
+                  <strong>Email:</strong> {userInfo.email}
+                </Typography>
+              </InfoItem>
+            </Grid>
+            <EditButtonContainer>
+              <Button variant="contained" color="primary" onClick={handleOpen}>
+                Edit Profile
+              </Button>
+            </EditButtonContainer>
+          </CardContent>
+        </ProfileCard>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Profile</DialogTitle>
-        <DialogContent>
-          <TextField
-            margin="dense"
-            label="Name"
-            type="text"
-            fullWidth
-            name="name"
-            value={userInfo.name}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            label="Address"
-            type="text"
-            fullWidth
-            name="address"
-            value={userInfo.address}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            label="Phone Number"
-            type="text"
-            fullWidth
-            name="mobile"
-            value={userInfo.mobile}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="dense"
-            label="Email"
-            type="email"
-            fullWidth
-            name="email"
-            value={userInfo.email}
-            onChange={handleChange}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={updateData} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Container>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Edit Profile</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
+              label="Name"
+              type="text"
+              fullWidth
+              name="name"
+              value={userInfo.name}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="dense"
+              label="Address"
+              type="text"
+              fullWidth
+              name="address"
+              value={userInfo.address}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="dense"
+              label="Phone Number"
+              type="text"
+              fullWidth
+              name="mobile"
+              value={userInfo.mobile}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="dense"
+              label="Email"
+              type="email"
+              fullWidth
+              name="email"
+              value={userInfo.email}
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={updateData} color="primary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Container>
+    </>
   );
 };
 

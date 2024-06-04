@@ -73,7 +73,10 @@ const Navbar = () => {
                 <button
                   className="navbar-link"
                   style={{
-                    background: "#A8A29E",
+                    background: "none",
+                    padding:"0",
+                    fontSize:"16px"
+                    
                   }}
                   onClick={logout}
                 >

@@ -63,7 +63,7 @@ function Home() {
         style={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center",
+          justifyContent: "space-around",
           marginTop: "50px",
         }}
       >

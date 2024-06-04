@@ -12,3 +12,4 @@ route.post("/logout",protect,logout)
 route.post("/checkout",checkout);
 route.post("/paymentverification",paymentVerification);
 export default route;
+

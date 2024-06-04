@@ -8,6 +8,7 @@ import Signup from './view/auth/Signup';
 import PaymentSuccess from './view/PaymentSuccess/PaymentSuccess';
 import Provider from './component/Context/Provider';
 import Profile from './view/Profile/Profile';
+import Details from './view/Details/Details';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -26,12 +27,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/paymentsuccess",
-    element:<PaymentSuccess/>
+    element: <PaymentSuccess />,
   },
   {
-    path:"/profile",
-    element:<Profile/>
-  }
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/details/:id",
+    element: <Details/>,
+  },
 ]);
 root.render(
   <Provider>
