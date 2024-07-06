@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Rating, Button } from "@mui/material";
 import "./Detail.css";
-
+import { useDispatch } from "react-redux";
 function Details() {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-
+   const dispatch = useDispatch()
   const getProduct = async () => {
     try {
       const res = await axios.get(`https://dummyjson.com/products/${id}`);
@@ -18,6 +18,31 @@ function Details() {
       console.log(err.message);
     }
   };
+
+  const handleAddToCart = async()=>{
+     try {
+      const user = JSON.parse(localStorage.getItem("user"))
+      const token = JSON.parse(localStorage.getItem("token"));
+      const res = await axios.post("/addtocart",{
+        User:user._id,
+        Id:product?.id,
+        Price:product?.price,
+        Quantity:quantity,
+        Image:product.thumbnail,
+        Name:product.title
+      }, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      console.log(res);
+      if(res?.data?.success == true){
+         alert(res?.data?.message)
+         window.location.href=("/cart")
+
+      }
+     } catch (error) {
+       console.log(error.message);
+     }
+  }
 
   useEffect(() => {
     getProduct();
@@ -127,15 +152,16 @@ function Details() {
               variant="contained"
               color="primary"
               className="add-to-cart-btn"
+              onClick={handleAddToCart}
             >
               Add to Cart
             </button>
-            <button
+            {/* <button
               onClick={()=>{checkoutHandler(product?.price);}}
               className="buy-now-btn"
             >
               Buy Now
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

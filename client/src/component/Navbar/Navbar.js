@@ -1,3 +1,4 @@
+// Navbar.js
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -7,13 +8,16 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./Navbar.css";
 import axios from "axios";
-import { State } from "../Context/Provider";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCarts } from "../../Redux/Reducer/CartSlice"; // Assuming Redux slice for carts
 
 const Navbar = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
-
   const [token, setToken] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const cartItems = useSelector((state) => state.Carts.items);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const tok = JSON.parse(localStorage.getItem("token"));
     if (tok) {
@@ -21,21 +25,26 @@ const Navbar = () => {
     }
   }, []);
 
-  
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchCarts()); // Fetch cart items when token is set
+    }
+  }, [token, dispatch]);
 
-   const logout = async()=>{
-       try {
-          await axios.post("/logout",null,{
-            headers:{"Authorization":`Bearer ${token}`}
-          })
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          navigate("/login")
-       } catch (error) {
-        console.log(error.message);
-       }
-   }
-  
+  const logout = async () => {
+    try {
+      await axios.post("/logout", null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setToken(null);
+      navigate("/login");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <header className="navbar">
       <div className="navbar-container">
@@ -46,7 +55,7 @@ const Navbar = () => {
           <ul className="navbar-links">
             <li>
               <Link to="/cart" className="navbar-link">
-                <ShoppingCartIcon className="icon" /> Cart
+                <ShoppingCartIcon className="icon" /> Cart ({cartItems.length})
               </Link>
             </li>
             {token ? null : (
@@ -74,9 +83,8 @@ const Navbar = () => {
                   className="navbar-link"
                   style={{
                     background: "none",
-                    padding:"0",
-                    fontSize:"16px"
-                    
+                    padding: "0",
+                    fontSize: "16px",
                   }}
                   onClick={logout}
                 >

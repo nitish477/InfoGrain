@@ -2,12 +2,12 @@ import React from "react";
 import "./Card.css";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product, checkoutHandler }) => {
+const ProductCard = ({ product, addtocart }) => {
   return (
     <div className="product-card spacing">
       <div className="badge"> {product.brand} </div>
       <div className="product-thumb">
-        <img src={product.thumbnail} alt="product-img" />
+        <img src={product.thumbnail} alt="product-img" loading="lazy"/>
       </div>
       <div className="product-details">
         <span className="product-category">{product.category}</span>
@@ -24,10 +24,10 @@ const ProductCard = ({ product, checkoutHandler }) => {
           </Link>
           <button
             onClick={() => {
-              checkoutHandler(product.price);
+              addtocart(product.id);
             }}
           >
-            Buy Now
+           Add to Cart
           </button>{" "}
         </div>
       </div>

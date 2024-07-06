@@ -13,6 +13,9 @@ const paymentSchema = new Schema({
     type: String,
     required: true,
   },
+  
+},{
+  timestamps:true
 });
 
 export const Payment = model("Payment", paymentSchema);
